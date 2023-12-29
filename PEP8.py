@@ -4,9 +4,6 @@ import imaplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-gmail_smtp = "smtp.gmail.com"
-gmail_imap = "imap.gmail.com"
-
 class work_email:
 
     def __init__(self, login='login@gmail.com', password='qwerty', subject='Subject', recipients=['vasya@email.com', 'petya@email.com'], message='Message', header=None):
@@ -16,6 +13,9 @@ class work_email:
         self.recipients = recipients
         self.message = message
         self.header = header
+        self.gmail_smtp = "smtp.gmail.com"
+        self.gmail_imap = "imap.gmail.com"
+        
 
     def send_message(self):
         msg = MIMEMultipart()
@@ -24,7 +24,7 @@ class work_email:
         msg['Subject'] = self.subject
         msg.attach(MIMEText(self.message))
 
-        ms = smtplib.SMTP(gmail_smtp, 587)
+        ms = smtplib.SMTP(self.gmail_smtp, 587)
         ms.ehlo()
         ms.starttls()
         ms.login(self.login, self.password)
@@ -32,7 +32,7 @@ class work_email:
         ms.close()
 
     def receive_message(self):
-        mail = imaplib.IMAP4_SSL(gmail_imap)
+        mail = imaplib.IMAP4_SSL(self.gmail_imap)
         mail.login(self.login, self.password)
         mail.list()
         mail.select("inbox")
