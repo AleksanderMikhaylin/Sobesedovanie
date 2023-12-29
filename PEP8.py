@@ -6,7 +6,9 @@ from email.mime.text import MIMEText
 
 class work_email:
 
-    def __init__(self, login='login@gmail.com', password='qwerty', subject='Subject', recipients=['vasya@email.com', 'petya@email.com'], message='Message', header=None):
+    def __init__(self, login='login@gmail.com', password='qwerty', subject='Subject', recipients=None, message='Message', header=None):
+        if recipients is None:
+            recipients = ['vasya@email.com', 'petya@email.com']
         self.login = login
         self.password = password
         self.subject = subject
